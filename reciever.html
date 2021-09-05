@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <title>Encryption and Decryption of data exchange files</title>        
+        <link rel="stylesheet" href="globalStyle.css" >
+    </head>
+    <body>
+        <header>
+            <center>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">Sender</a>
+                        </li>
+                        <li>
+                            <a href="#" class="selected"> Receiver</a>
+                        </li>
+                    </ul>
+                </nav>
+            </center>            
+        </header>
+        
+        <main>
+            <section class="grid">
+                <form>
+                    <div>
+                        <input 
+                            type="number" 
+                            max="17" 
+                            placeholder="Enter Private Number"
+                            class="private_number"
+                            id="privateNumber"/>
+                        <button class="generate_public_key" onclick="generateRecieverPN()">Generate public key</button><br/>
+                        <button class="generate_private_key" disabled>Generate Private Key</button>
+                    </div>                  
+                </form>
+            </section>
+            <section class="grid">
+
+            </section>            
+        </main>  
+        
+        <script src="scripts.js">   
+        </script>      
+    </body>
+</html>

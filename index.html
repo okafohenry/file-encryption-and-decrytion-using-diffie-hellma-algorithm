@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <title>Encryption and Decryption of data exchange files</title>
+        <link rel="stylesheet" href="globalStyle.css" >
+    </head>
+    <body>
+        <header>
+            <center>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#" class="selected">Sender</a>
+                        </li>
+                        <li>
+                            <a href="reciever.html"> Receiver</a>
+                        </li>
+                    </ul>
+                </nav>
+            </center>            
+        </header>
+        
+        <main>
+            <section class="grid">
+                <form>
+                    <div>
+                        <input 
+                            type="number" 
+                            max="17" 
+                            placeholder="Enter Private Number"
+                            class="private_number"
+                            id="privateNumber"/>
+                            
+                        <button class="generate_public_key" onclick="generateSenderPN()">Generate public key</button><br/>
+                        
+                        <button class="generate_private_key" disabled>Generate Private Key</button>
+                    </div>
+                    <div class="file_upload-section">
+                        <input 
+                            type="file" 
+                            class="file_upload" 
+                            accept=".jpg,.docx" 
+                            id="fileUpload" 
+                            onchange="setFile()"  /> <br/>
+
+                        <input type="text" id="uploadedFile" placeholder=".docx file only" disabled />
+
+                        <button class="upload-btn" onclick="uploadBtn()">Upload document</button>
+                        <div id="one"></div>
+                        <div id="two"></div>
+                        <div id="three"></div>
+                        <div id="four"></div>
+                    </div> 
+                    <button type="submit" class="send-btn">send</button>                   
+                </form>
+            </section>
+            <section class="grid preview-section">
+
+            </section>             
+        </main>  
+        
+        <script src="scripts.js">   
+        </script>      
+    </body>
+</html>
