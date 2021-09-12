@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta>
+        <title>Encryption and Decryption of data exchange files</title>        
+        <link rel="stylesheet" href="globalStyle.css" >
+    </head>
+    <body>
+        <header>
+            <center>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">Sender</a>
+                        </li>
+                        <li>
+                            <a href="#" class="selected"> Receiver</a>
+                        </li>
+                    </ul>
+                </nav>
+            </center>            
+        </header>
+        
+        <main class="grid-container">
+            <section>
+                <form>
+                    <div class="key_confirm_popup">
+                        <input 
+                            type="number" 
+                            max="17" 
+                            placeholder="Enter Private Number"
+                            class="private_number"
+                            id="privateNumber"/>
+
+                        <button class="generate_public_key" onclick="generateRecieverPN()">Generate public key</button><br/><br/>
+                        <label>public key:</label><p class=""></p> <br/>
+                        <button class="">Send</button> <button class="" disabled>Generate Private Key</button>
+                        <br/><br/>
+                        <label>private key:</label><p class=""></p>
+                    </div>
+                </form>
+            </section>             
+               
+            <section >
+                <div class="display" id="display"></div>
+                <br/><br/>
+                <input 
+                    type="number" 
+                    max="17" 
+                    placeholder="Enter Private Key"
+                    class="private_number"
+                    id="privateNumber"/>
+                <input type="button" value="Decrypt file" class="decrypt-btn" onclick="decryptText()"/> 
+            </section>            
+        </main>  
+        
+        <script src="scripts.js">   
+        </script>      
+    </body>
+</html>
