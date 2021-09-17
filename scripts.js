@@ -1,15 +1,16 @@
 
-const showKeyConfirm = () => document.getElementById("key-confirm-popup-overlay").style.display = "block";
+const showSenderKeyConfirm = () => document.getElementById("key-confirm-popup-overlay").style.display = "block";
+const showReceiverKeyConfirm = () => document.getElementById("generate-receiver-key-popup-overlay").style.display = "block";
 
 const showGenPrivateKey = () => {
     document.getElementById("key-confirm-popup-overlay").style.display = 'none';
     document.getElementById("generate-key-popup-overlay").style.display = 'block';
 }
-/*
-const close = () => {    
-    document.getElementById("key-confirm-popup-overlay").style.display = "none";
+
+const closePopup = (page) => {  
+    document.getElementById(page).style.display = "none";
 }
-*/
+
 const generateSenderPN = () => {   
     let result;
     let private_number = document.getElementById("privateNumber").value; 
@@ -138,8 +139,45 @@ const encryptText = () => {
     const div = document.getElementById('output');
     //replace each vowel letter with its preceeding and succeeding alphabet
     let encryptedText = div.innerHTML.replace(/a/g, "zb").replace(/e/g, "df").replace(/i/g, "hj").replace(/o/g, 'np').replace(/u/g, 'tv').replace(/1/g, '~').replace(/3/g, '¬');
-    document.getElementById("key-confirm-popup-overlay").style.display = "none";
+    closePopup('key-confirm-popup-overlay');
 
     return div.innerHTML = encryptedText;
 
-}   
+} 
+
+const decryptText = () => {    
+    const div = document.getElementById('output');
+    let decryptedText = div.innerHTML.replace(/zb/g, "a").replace(/df/g, "e").replace(/hj/g, "i").replace(/np/g, 'o').replace(/tv/g, 'u').replace(/~/g, '1').replace(/¬/g, '3');
+    closePopup('generate-receiver-key-popup-overlay');
+
+    return div.innerHTML = decryptedText;
+}
+
+
+
+fetch('./package.json',{
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }
+    }).then( response => {
+        return response.json();
+    }).then( data => {
+        console.log(data);        
+        appendData(data);
+    }).catch( err => {
+        console.log(err);
+});
+
+const appendData = (res) => {    
+    window.localStorage.setItem('data', JSON.stringify(res));
+}
+
+const retrieveSenderData = () => {    
+    const items = JSON.parse(window.localStorage.getItem('data'));
+    const senderKey = items.senderPublicKey;
+    console.log(senderKey)
+    
+    document.getElementById('display-sender-public-key').innerHTML = senderKey;
+}
+

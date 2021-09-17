@@ -1,0 +1,11 @@
+{
+    "id": "bafiWIGJQIOJGJAG0J3JTWJQ0WQ",
+    "senderPublicKey": 23,
+    "receiverPublicKey": 12,
+    "senderPrivateKey": 17,
+    "receiverPrivateKey": 17,
+    "doc": "blob:null0jfqoanoas",
+    "dependencies": {
+        "live-server": "^1.2.1"
+    }
+}

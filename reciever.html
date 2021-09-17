@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Encryption and Decryption of data exchange files</title>        
         <link rel="stylesheet" href="globalStyle.css" >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
     </head>
-    <body>
+    <body onload="retrieveSenderData()">
         <header>
             <center>
                 <nav>
@@ -23,8 +28,9 @@
         
         <main class="grid-container">
             <section>
-                <form>
-                    <div class="key_confirm_popup">
+                <div class="generate-key-popup-overlay" id="generate-receiver-key-popup-overlay">                    
+                    <label class="close-popup" onclick="closePopup('generate-receiver-key-popup-overlay')">X</label>
+                    <form class="popup">
                         <input 
                             type="number" 
                             max="17" 
@@ -32,25 +38,39 @@
                             class="private_number"
                             id="privateNumber"/>
 
-                        <button class="generate_public_key" onclick="generateRecieverPN()">Generate public key</button><br/><br/>
-                        <label>public key:</label><p class=""></p> <br/>
-                        <button class="">Send</button> <button class="" disabled>Generate Private Key</button>
+                        <input 
+                            type="button"  
+                            value="Generate Public Key"
+                            class="generate-public-key-btn"  
+                            onclick="generateRecieverPN()" />
                         <br/><br/>
+
+                        <label>public key:</label><p class="" id="display-sender-public-key"></p> 
+                        <br/>
+
+                        <button class="generate-private-key-btn" disabled>Generate Private Key</button>
+                        <br/><br/>
+
                         <label>private key:</label><p class=""></p>
-                    </div>
-                </form>
+                        <br/><br/>
+                        <input 
+                            type="button" 
+                            value="confirm" 
+                            class="confirm-decryption-btn" 
+                            onclick="decryptText()" />
+                    </form>
+                </div>
             </section>             
                
             <section >
                 <div class="display" id="display"></div>
                 <br/><br/>
+                
                 <input 
-                    type="number" 
-                    max="17" 
-                    placeholder="Enter Private Key"
-                    class="private_number"
-                    id="privateNumber"/>
-                <input type="button" value="Decrypt file" class="decrypt-btn" onclick="decryptText()"/> 
+                    type="button" 
+                    value="Decrypt File" 
+                    class="decrypt-btn" 
+                    id="decrypt-btn" onclick="showReceiverKeyConfirm()"/> 
             </section>            
         </main>  
         
