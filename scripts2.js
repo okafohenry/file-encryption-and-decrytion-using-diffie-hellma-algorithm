@@ -3,10 +3,8 @@
 const loadDoc = () => {
     const items = JSON.parse(window.localStorage.getItem('data'));
     const div = document.getElementById('display');
-    const load_img = document.getElementById('load-doc-img');
     if(items.doc) {  
-        load_img.src = "loading-text-gif-10.gif" ;
-        document.getElementById('load-doc-text').style.display = "hidden";
+        div.innerText = "loading..." ;
         setTimeout(() => {  div.innerText = items.doc }, 2500);
     }
 }
