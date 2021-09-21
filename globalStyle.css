@@ -139,6 +139,15 @@ button {
     border: none;
     border-radius: 5px;
 }
+.generate-private-key-rc-btn{
+    font-size: 13px;
+    width: 97%;
+    padding: 10px 55px;
+    background: rgba(212, 10, 10, 0.863);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
 .generate-public-key-btn {
     font-size: 13px;
     width: 97%;
@@ -178,5 +187,13 @@ button {
     border-radius: 5px;
     margin-top: 10px;
     letter-spacing: .6px;
+}
+
+.reload-box {
+    width: 150px;
+    height: 150px;
+    font-size:  13px;
+    cursor: pointer;
+    margin-top: 150px;
 }
 

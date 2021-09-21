@@ -51,7 +51,7 @@
                     <label class="close-popup" onclick="closePopup('key-confirm-popup-overlay')">X</label>
                     <form class="popup">
                         <div>
-                            <p class="error"></p>
+                            <p class="error" id="error"></p>
                             <input 
                                 type="number" 
                                 max="17" 
@@ -83,7 +83,7 @@
                                 onclick="generateSenderPublicKey()" />
 
                             <br/><br/>
-                            <label>public key:</label><p class="" id="display-receiver-public-key"></p> 
+                            <label>public key: </label><span class="" id="display-receiver-public-key"></span> 
                             <p id="sender-pk-container"></p>
                             <br/>
                             <button class="send-btn">Send</button> 
@@ -93,7 +93,7 @@
                                 class="generate-private-key-btn"
                                 onclick="generateSenderPrivateKey()" />
                             <br/><br/>
-                            <label>private key:</label><p class="" id="display-sender-private-key"></p>
+                            <label>private key: </label><span class="" id="display-sender-private-key"></span>
                     </form>                
                 </div>
             </section>             
@@ -101,10 +101,13 @@
         
         <script src="scripts.js"></script>    
         <script>
-                const generateSenderPublicKey = () => {   
+            const generateSenderPublicKey = () => {  
                 let result;
                 let private_number = document.getElementById("sender-private-number").value; 
-                if(private_number) { 
+                if(private_number) {                     
+                    //display loading icon while reciever public key is being fetched
+                    document.getElementById('display-receiver-public-key').innerHTML = "loading...";
+
                     result = Math.pow(3,private_number) % 17;  
                     
                     const items = JSON.parse(window.localStorage.getItem('data'));
@@ -113,7 +116,7 @@
 
                     
                     //retrieve data from localStorage and display on P tag after 5 seconds
-                    setTimeout("retrieveReceiverData()", 2500);
+                    setTimeout("retrieveReceiverData()", 3500);
                 };
             }
 

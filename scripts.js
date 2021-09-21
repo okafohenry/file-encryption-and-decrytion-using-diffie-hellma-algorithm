@@ -139,7 +139,7 @@ const triggerUploadBtn = () => {
 
 //encrypts selected file; takes each vowel letter and replaces it with it's preceeding and succeeding alphabets
 const encryptText = () => {
-    const div = document.getElementById('output');    
+    const div = document.getElementById('output');  
     const items = JSON.parse(window.localStorage.getItem('data'));
 
     if(items.senderPrivateKey && (items.receiverPrivateKey == items.senderPrivateKey)){
@@ -152,8 +152,9 @@ const encryptText = () => {
         items.doc =  div.innerText;
         window.localStorage.setItem('data', JSON.stringify(items));
 
-           
-        setTimeout(() => { div.innerText = items.doc}, 5000)
+    }else{
+        document.getElementById('error').innerHTML = "Private Key is incorrect!";
+        setTimeout(() => {document.getElementById('error').innerHTML = ""}, 5000);
     }
     
 } 

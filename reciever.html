@@ -31,6 +31,7 @@
                 <div class="generate-key-popup-overlay" id="generate-receiver-key-popup-overlay">                    
                     <label class="close-popup" onclick="closePopup('generate-receiver-key-popup-overlay')">X</label>
                     <form class="popup">
+                        <p class="error" id="error"></p>
                         <input 
                             type="number" 
                             max="17" 
@@ -45,16 +46,16 @@
                             onclick="generateRecieverPublicKey()" />
                         <br/><br/>
 
-                        <label>public key:</label><p class="" id="display-sender-public-key"></p> 
-                        <br/>
+                        <label>public key: </label><span class="" id="display-sender-public-key"></span> 
+                        <br/><br/>
                         <input 
                             type="button"
                             value="Generate Private Key"
-                            class="generate-private-key-btn"
+                            class="generate-private-key-rc-btn"
                             onclick="generateReceiverPrivateKey()" />
                         <br/><br/>
 
-                        <label>private key:</label><p class="" id="display-receiver-private-key"></p>
+                        <label>private key: </label><span class="" id="display-receiver-private-key"></span>
                         <br/><br/>
                         <input 
                             type="button" 
@@ -66,7 +67,14 @@
             </section>             
                
             <section >
-                <div class="display" id="display"></div>
+                <div class="display" id="display">
+                    <center>
+                       <div class="reload-box" onclick="loadDoc()">
+                            <img src="iconmonstr-reload-thin.svg" height="40px" width="40px"  />
+                            <p>click to load encrypted file</p>
+                       </div>
+                    </center>
+                </div>
                 <br/><br/>
                 
                 <input 

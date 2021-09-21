@@ -1,7 +1,17 @@
 //retrieve sender data from localStorage and display in index file (p tag)
 
+const loadDoc = () => {
+    const items = JSON.parse(window.localStorage.getItem('data'));
+    const div = document.getElementById('display');
+    if(items.doc) {  
+        div.innerText = "loading..." ;
+        setTimeout(() => {  div.innerText = items.doc }, 2500);
+    }
+}
+
 
 const generateRecieverPublicKey = () => {
+    document.getElementById('display-sender-public-key').innerHTML = "loading...";
     let result;
     let private_number = document.getElementById("receiver-private-number").value; 
     const items = JSON.parse(window.localStorage.getItem('data'));
@@ -13,7 +23,7 @@ const generateRecieverPublicKey = () => {
         window.localStorage.setItem('data', JSON.stringify(items));
 
         //retrieve data from localStorage and display on P tag after 5 seconds
-        setTimeout("retrieveSenderData()", 2500);
+        setTimeout("retrieveSenderData()", 3500);
     };
 }
 
@@ -49,15 +59,18 @@ const generateReceiverPrivateKey = () => {
 
 //decrypts encrypted file by reversing encryption logic
 const decryptText = () => {    
-    const div = document.getElementById('output');
+    const div = document.getElementById('display');
     const items = JSON.parse(window.localStorage.getItem('data'));
-    const decryptedText = "";
+    let decryptedText = "";
 
     if(items.receiverPrivateKey && (items.senderPrivateKey == items.receiverPrivateKey)){
         decryptedText = div.innerText.replace(/zb/g, "a").replace(/df/g, "e").replace(/hj/g, "i").replace(/np/g, 'o').replace(/tv/g, 'u').replace(/~/g, '1').replace(/¬/g, '3');
         closePopup('generate-receiver-key-popup-overlay');
     
         div.innerText = decryptedText;
-    } 
+    }else{
+        document.getElementById('error').innerHTML = "Private Key is incorrect!";
+        setTimeout(() => {document.getElementById('error').innerHTML = ""}, 5000);
+    }
     
 }
