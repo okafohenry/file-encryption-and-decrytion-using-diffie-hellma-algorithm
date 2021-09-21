@@ -1,4 +1,3 @@
-
 const showSenderKeyConfirm = () => document.getElementById("key-confirm-popup-overlay").style.display = "block";
 const showReceiverKeyConfirm = () => document.getElementById("generate-receiver-key-popup-overlay").style.display = "block";
 
@@ -11,22 +10,26 @@ const closePopup = (page) => {
     document.getElementById(page).style.display = "none";
 }
 
-const generateSenderPN = () => {   
-    let result;
-    let private_number = document.getElementById("privateNumber").value; 
-    if(private_number) { 
-        result = Math.pow(3,private_number) % 17;  
-        alert(result);
-    };
-}
 
-const generateRecieverPN = () => {
-    let result;
-    let private_number = document.getElementById("privateNumber").value; 
-    if(private_number) { 
-        result = Math.pow(3,private_number) % 17;  
-        alert(result);
-    };
+
+
+/*
+generates sender's private key, using receiver's public key from localstorage then 
+stores the result to localStorage
+*/
+const generateSenderPrivateKey = () => {
+    let private_number = document.getElementById("sender-private-number").value;
+    //let receiverPK = document.getElementById('display-receiver-public-key').innerHTML;
+    const items = JSON.parse(window.localStorage.getItem('data'));
+    if(items.receiverPublicKey){
+        let private_key = Math.pow(items.receiverPublicKey, private_number) % 17;
+    
+        items.senderPrivateKey = private_key;
+        window.localStorage.setItem('data', JSON.stringify(items));
+
+        document.getElementById('display-sender-private-key').innerText = private_key;
+    }
+ 
 }
 
 const triggerUploadBtn = () => {
@@ -35,7 +38,7 @@ const triggerUploadBtn = () => {
 
 
 
-
+//extracts text from selected pdf file and loads it into iframe src
  var datass = '';
         var DataArr = [];
         PDFJS.workerSrc = '';
@@ -112,11 +115,11 @@ const triggerUploadBtn = () => {
 
                     // Display text of all the pages in the console
                     // e.g ["Text content page 1", "Text content page 2", "Text content page 3" ... ]
-                    console.log(pagesText); // representing every single page of PDF Document by array indexing
-                    console.log(pagesText.length);
+                    //console.log(pagesText); // representing every single page of PDF Document by array indexing
+                   // console.log(pagesText.length);
                     var outputStr = "";
                     for (var pageNum = 0; pageNum < pagesText.length; pageNum++) {
-                        console.log(pagesText[pageNum]);
+                        //console.log(pagesText[pageNum]);
                         outputStr = "";
                         outputStr = "<br/><br/>Page " + (pageNum + 1) + " contents <br/> <br/>";
 
@@ -134,27 +137,28 @@ const triggerUploadBtn = () => {
             });
         }
 
-
+//encrypts selected file; takes each vowel letter and replaces it with it's preceeding and succeeding alphabets
 const encryptText = () => {
-    const div = document.getElementById('output');
-    //replace each vowel letter with its preceeding and succeeding alphabet
-    let encryptedText = div.innerHTML.replace(/a/g, "zb").replace(/e/g, "df").replace(/i/g, "hj").replace(/o/g, 'np').replace(/u/g, 'tv').replace(/1/g, '~').replace(/3/g, '¬');
-    closePopup('key-confirm-popup-overlay');
+    const div = document.getElementById('output');    
+    const items = JSON.parse(window.localStorage.getItem('data'));
 
-    return div.innerHTML = encryptedText;
+    if(items.senderPrivateKey && (items.receiverPrivateKey == items.senderPrivateKey)){
+        //replace each vowel letter with its preceeding and succeeding alphabet
+        let encryptedText = div.innerHTML.replace(/a/g, "zb").replace(/e/g, "df").replace(/i/g, "hj").replace(/o/g, 'np').replace(/u/g, 'tv').replace(/1/g, '~').replace(/3/g, '¬');
+        closePopup('key-confirm-popup-overlay');
 
+        div.innerHTML = encryptedText;
+
+        items.doc =  div.innerText;
+        window.localStorage.setItem('data', JSON.stringify(items));
+
+           
+        setTimeout(() => { div.innerText = items.doc}, 5000)
+    }
+    
 } 
 
-const decryptText = () => {    
-    const div = document.getElementById('output');
-    let decryptedText = div.innerHTML.replace(/zb/g, "a").replace(/df/g, "e").replace(/hj/g, "i").replace(/np/g, 'o').replace(/tv/g, 'u').replace(/~/g, '1').replace(/¬/g, '3');
-    closePopup('generate-receiver-key-popup-overlay');
-
-    return div.innerHTML = decryptedText;
-}
-
-
-
+//fetch data from JSON file, save to localStorage
 fetch('./package.json',{
     headers : { 
       'Content-Type': 'application/json',
@@ -169,15 +173,13 @@ fetch('./package.json',{
         console.log(err);
 });
 
+//save data from package.json to localStorage
 const appendData = (res) => {    
     window.localStorage.setItem('data', JSON.stringify(res));
 }
 
-const retrieveSenderData = () => {    
-    const items = JSON.parse(window.localStorage.getItem('data'));
-    const senderKey = items.senderPublicKey;
-    console.log(senderKey)
-    
-    document.getElementById('display-sender-public-key').innerHTML = senderKey;
-}
+
+
+
+
 

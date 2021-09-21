@@ -10,7 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
     </head>
-    <body onload="retrieveReceiverData()">
+    <body>
         <header>
             <center>
                 <nav>
@@ -36,7 +36,12 @@
                 <br/><br/>         
                 <div class="output" id="output" ></div>
                 <br/><br/>
-                <input type="button" value="Encrypt File" id="encrypt-btn" class="encrypt-btn" onclick="showSenderKeyConfirm()" />  
+                <input type="button" 
+                    value="Encrypt File" 
+                    id="encrypt-btn" 
+                    class="encrypt-btn" 
+                    onclick="showSenderKeyConfirm()" 
+                    />  
             </section>
                      
             <!-- pop ups  -->
@@ -69,24 +74,57 @@
                                 max="17" 
                                 placeholder="Enter Private Number"
                                 class="private_number"
-                                id="privateNumber"/>
+                                id="sender-private-number"/>
 
-                            <input type="button" value="Generate public key" class="generate-public-key-btn" onclick="generateSenderPN()">
+                            <input 
+                                type="button"  
+                                value="Generate Public Key"
+                                class="generate-public-key-btn"  
+                                onclick="generateSenderPublicKey()" />
+
                             <br/><br/>
                             <label>public key:</label><p class="" id="display-receiver-public-key"></p> 
                             <p id="sender-pk-container"></p>
                             <br/>
                             <button class="send-btn">Send</button> 
-                            <button class="generate-private-key-btn">Generate Private Key</button>
+                            <input 
+                                type="button"
+                                value="Generate Private Key"
+                                class="generate-private-key-btn"
+                                onclick="generateSenderPrivateKey()" />
                             <br/><br/>
-                            <label>private key:</label><p class=""></p>
+                            <label>private key:</label><p class="" id="display-sender-private-key"></p>
                     </form>                
                 </div>
             </section>             
         </main>  
         
-        <script src="scripts.js">   
+        <script src="scripts.js"></script>    
+        <script>
+                const generateSenderPublicKey = () => {   
+                let result;
+                let private_number = document.getElementById("sender-private-number").value; 
+                if(private_number) { 
+                    result = Math.pow(3,private_number) % 17;  
+                    
+                    const items = JSON.parse(window.localStorage.getItem('data'));
+                    items.senderPublicKey = result;
+                    window.localStorage.setItem('data', JSON.stringify(items));
+
+                    
+                    //retrieve data from localStorage and display on P tag after 5 seconds
+                    setTimeout("retrieveReceiverData()", 2500);
+                };
+            }
+
+            //retrieve sender data from localStorage and display in index file (p tag) 
+            const retrieveReceiverData = () => {
+                const items = JSON.parse(window.localStorage.getItem('data'));
+                const receiverKey = items.receiverPublicKey;
+                console.log(receiverKey);
+
+                document.getElementById('display-receiver-public-key').innerHTML = receiverKey;
+            }
         </script> 
-        <script src="scripts2.js"></script>     
     </body>
 </html>

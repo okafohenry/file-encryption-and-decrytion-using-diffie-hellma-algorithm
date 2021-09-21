@@ -10,7 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
     </head>
-    <body onload="retrieveSenderData()">
+    <body>
         <header>
             <center>
                 <nav>
@@ -36,22 +36,25 @@
                             max="17" 
                             placeholder="Enter Private Number"
                             class="private_number"
-                            id="privateNumber"/>
+                            id="receiver-private-number"/>
 
                         <input 
                             type="button"  
                             value="Generate Public Key"
                             class="generate-public-key-btn"  
-                            onclick="generateRecieverPN()" />
+                            onclick="generateRecieverPublicKey()" />
                         <br/><br/>
 
                         <label>public key:</label><p class="" id="display-sender-public-key"></p> 
                         <br/>
-
-                        <button class="generate-private-key-btn" disabled>Generate Private Key</button>
+                        <input 
+                            type="button"
+                            value="Generate Private Key"
+                            class="generate-private-key-btn"
+                            onclick="generateReceiverPrivateKey()" />
                         <br/><br/>
 
-                        <label>private key:</label><p class=""></p>
+                        <label>private key:</label><p class="" id="display-receiver-private-key"></p>
                         <br/><br/>
                         <input 
                             type="button" 
@@ -74,7 +77,8 @@
             </section>            
         </main>  
         
-        <script src="scripts.js">   
-        </script>      
-    </body>
+        <script src="scripts.js"></script>
+        <script src="scripts2.js"></script>   
+           
+    </body> 
 </html>
