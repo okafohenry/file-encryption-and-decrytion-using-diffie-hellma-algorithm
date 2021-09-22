@@ -141,20 +141,23 @@ const triggerUploadBtn = () => {
 const encryptText = () => {
     const div = document.getElementById('output');  
     const items = JSON.parse(window.localStorage.getItem('data'));
+    const private_number = document.getElementById('privateNumber');
 
-    if(items.senderPrivateKey && (items.receiverPrivateKey == items.senderPrivateKey)){
-        //replace each vowel letter with its preceeding and succeeding alphabet
-        let encryptedText = div.innerHTML.replace(/a/g, "zb").replace(/e/g, "df").replace(/i/g, "hj").replace(/o/g, 'np').replace(/u/g, 'tv').replace(/1/g, '~').replace(/3/g, '¬');
-        closePopup('key-confirm-popup-overlay');
+    if(items.senderPrivateKey && (items.receiverPrivateKey === items.senderPrivateKey)){ 
+        if(private_number.value === items.senderPrivateKey){
+            //replace each vowel letter with its preceeding and succeeding alphabet
+            let encryptedText = div.innerHTML.replace(/a/g, "zb").replace(/e/g, "df").replace(/i/g, "hj").replace(/o/g, 'np').replace(/u/g, 'tv').replace(/1/g, '~').replace(/3/g, '¬');
+            closePopup('key-confirm-popup-overlay');
 
-        div.innerHTML = encryptedText;
+            div.innerHTML = encryptedText;
 
-        items.doc =  div.innerText;
-        window.localStorage.setItem('data', JSON.stringify(items));
+            items.doc =  div.innerText;
+            window.localStorage.setItem('data', JSON.stringify(items));
 
-    }else{
-        document.getElementById('error').innerHTML = "Private Key is incorrect!";
-        setTimeout(() => {document.getElementById('error').innerHTML = ""}, 5000);
+        }else{
+            document.getElementById('error').innerHTML = "Private Key is incorrect!";
+            setTimeout(() => {document.getElementById('error').innerHTML = ""}, 5000);
+        }
     }
     
 } 
