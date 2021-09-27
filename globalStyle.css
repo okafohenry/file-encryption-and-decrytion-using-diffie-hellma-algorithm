@@ -133,7 +133,7 @@ button {
 }
 .generate-private-key-btn {
     font-size: 13px;
-    padding: 10px 55px;
+    padding: 10px 107.5px;
     background: rgba(212, 10, 10, 0.863);
     color: #fff;
     border: none;
@@ -159,13 +159,7 @@ button {
     margin-top: 10px;
     letter-spacing: .6px;
 }
-.send-btn {
-    padding: 10px 32px;
-    font-size: 13px;
-    border-radius: 5px;
-    background: rgba(8, 116, 8, 0.808);
-    color: #fff;
-}
+
 .close-popup {
     font-size: xx-large;
     color: rgb(212, 10, 10);
