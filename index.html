@@ -72,6 +72,7 @@
                 <div class="generate-key-popup-overlay" id="generate-key-popup-overlay">                    
                     <label class="close-popup" onclick="closePopup('generate-key-popup-overlay')">X</label>
                     <form class="popup">
+                            <p class="privateNumber_error" id="privateNumber_error"></p>
                             <input 
                                 type="number" 
                                 max="17" 
@@ -119,7 +120,10 @@
                     
                     //retrieve data from localStorage and display on P tag after 5 seconds
                     setTimeout("retrieveReceiverData()", 3500);
-                };
+                }else{
+                    document.getElementById('privateNumber_error').innerHTML = "Ensure that Private number box is not empty!";
+                    setTimeout(() => {document.getElementById('privateNumber_error').innerHTML = ""}, 5000);
+                }
             }
 
             //retrieve sender data from localStorage and display in index file (p tag) 
