@@ -60,8 +60,11 @@
                                 id="private-number"/>
                             <br/><br/>
                             <label>private key:</label><p class="" id="display-private-key"></p> <br/>
-                            <input type="button" value="Confirm" class="confirm-btn" onclick="encryptText()" />
-                            <input type="button" value="Generate key" class="generate-private-key-btn" onclick="showGenPrivateKey()">
+                            <div class="confirm-generate-container">
+                                <input type="button" value="Confirm" class="confirm-btn" onclick="encryptText()" />
+                                <input type="button" value="Generate key" class="generate-private-key-btn" onclick="showGenPrivateKey()">
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
@@ -89,7 +92,7 @@
                             <input 
                                 type="button"
                                 value="Generate Private Key"
-                                class="generate-private-key-btn"
+                                class="generate-private-key-btn2"
                                 onclick="generateSenderPrivateKey()" />
                             <br/><br/>
                             <label>private key: </label><span class="" id="display-sender-private-key"></span>

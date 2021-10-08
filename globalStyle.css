@@ -117,12 +117,16 @@ button {
     top: 25%;
     background: #fff;
 }
-.error {
+.error, .privateNumber_error {
     color: rgba(236, 15, 15, 0.863);
     font-size: 13px;
     letter-spacing: .3px;
     text-transform: capitalize;
     padding-bottom: 5px;
+}
+.confirm-generate-container{
+    display: inline-flex;
+    gap: 35px;
 }
 .confirm-btn {
     padding: 10px 50px;
@@ -133,7 +137,15 @@ button {
 }
 .generate-private-key-btn {
     font-size: 13px;
-    padding: 10px 107.5px;
+    padding: 10px 40px;
+    background: rgba(212, 10, 10, 0.863);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+.generate-private-key-btn2{
+    font-size: 13px;
+    padding: 10px 107px;
     background: rgba(212, 10, 10, 0.863);
     color: #fff;
     border: none;
